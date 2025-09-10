@@ -1,0 +1,23 @@
+/* Estilos específicos de tu App compatibles con tokens y temas */
+
+.App { text-align: left; }
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.theme-switcher { display: inline-flex; gap: var(--space-2); }
+
+.app-logo { height: 40px; }
+
+@keyframes gentle-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.spin { animation: gentle-spin infinite 20s linear; }
+
+/* Úsalo solo si quieres rotar un icono explícitamente */
+.spin {
+  animation: gentle-spin infinite 20s linear;
+}

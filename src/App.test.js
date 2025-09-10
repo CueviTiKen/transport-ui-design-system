@@ -1,8 +1,11 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
+test("muestra el título y los botones principales", () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByRole("heading", { name: /sistema de diseño/i })).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /claro/i })).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /oscuro/i })).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /alto contraste/i })).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /buscar/i })).toBeInTheDocument();
 });
