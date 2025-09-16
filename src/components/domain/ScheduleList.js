@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from "react";
-import Tag from "../ui/Tag";
 
 /**
  * Listado de horarios accesible.
@@ -150,7 +149,17 @@ export default function ScheduleList({ items = [], loading = false, error = null
                   <td>{it.origin}</td>
                   <td>{it.destination}</td>
                   <td>{formatDuration(it.durationMin)}</td>
-                  <td><Tag label={occ.label} tone={occ.tone} /></td>
+                  <td>
+                    {/* Equivalente al color: texto visible + data-tone para estilos opcionales */}
+                    <span
+                      className="tag"
+                      data-tone={occ.tone}
+                      aria-label={occ.label}
+                      title={occ.label}
+                    >
+                      {occ.label}
+                    </span>
+                  </td>
                   <td>{formatPrice(it.price)}</td>
                   <td>
                     <button

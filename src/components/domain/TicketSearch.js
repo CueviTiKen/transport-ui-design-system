@@ -27,8 +27,8 @@ export default function TicketSearch(){
   const handleSearch = (e)=>{
     e?.preventDefault?.();
     const es = [];
-    if (!q.locator && !q.email) es.push({ id:"q", message: "Introduce localizador y/o email" });
-    if (q.email && !isEmail(q.email)) es.push({ id:"email", message: "Email no válido" });
+    if (!q.locator && !q.email) es.push({ id:"q", message: "Introduce localizador y/o correo electrónico" });
+    if (q.email && !isEmail(q.email)) es.push({ id:"email", message: "Correo electrónico no válido" });
     setErrs(es);
     if (es.length) return;
     const found = findTickets({ locator: q.locator, email: q.email });
@@ -81,8 +81,14 @@ export default function TicketSearch(){
             <TextInput id="locator" value={q.locator} onChange={(e)=>setQ(s=>({...s, locator:e.target.value}))} placeholder="ABC123" />
           </Field>
 
-          <Field label="Email" id="email" help="El usado en la compra." error={errs.find(e=>e.id==="email")?.message}>
-            <TextInput id="email" type="email" value={q.email} onChange={(e)=>setQ(s=>({...s, email:e.target.value}))} placeholder="persona@example.com" />
+          <Field
+            label="Correo electrónico"
+            id="email"
+            labelInside
+            help="El usado en la compra."
+            error={errs.find(e=>e.id==="email")?.message}
+          >
+            <TextInput id="email" type="email" value={q.email} onChange={(e)=>setQ(s=>({...s, email:e.target.value}))} />
           </Field>
 
           <button type="submit" className="btn">Buscar</button>

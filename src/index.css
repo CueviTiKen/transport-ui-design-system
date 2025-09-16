@@ -57,50 +57,6 @@ body{
 .help{ margin-top:.25rem; font-size:.9rem; opacity:.9 }
 .error{ color:var(--error-600); margin-top:.25rem; font-weight:600 }
 
-/* ==== Combobox ==== */
-.combo{ position:relative }
-.combo-input{
-  width:100%;
-  padding:0.625rem 0.75rem;
-  font-size:1rem;
-  border:1px solid #9ca3af;
-  border-radius:8px;
-  background:transparent;
-  color:inherit;
-}
-.combo-list{
-  position:absolute;
-  z-index:10;
-  margin-top:4px;
-  width:100%;
-  max-height:240px;
-  overflow:auto;
-  background:var(--color-bg);
-  color:var(--color-fg);
-  border:1px solid #9ca3af;
-  border-radius:8px;
-  box-shadow:var(--shadow-1);
-  list-style:none;
-  padding:0;
-}
-.combo-option{
-  padding:0.5rem 0.75rem;
-  cursor:pointer;
-}
-.combo-option[data-active="true"]{
-  background:var(--brand-600);
-  color:#fff;
-}
-:root[data-theme="hc"] .combo-option[data-active="true"]{
-  outline:2px solid #ff0;
-  background:transparent;
-  color:inherit;
-}
-.combo-empty{
-  padding:0.5rem 0.75rem;
-  opacity:.8;
-}
-
 /* ==== Date input & Time input ==== */
 .date-input__row{ display:flex; gap:.5rem; align-items:center; }
 .date-input__text, .time-input__text{
@@ -203,11 +159,11 @@ body{
 .seat{
   width:40px; height:40px;
   border-radius:8px;
-  border:1px solid #9ca3af;        /* marco neutro */
+  border:1px solid #9ca3af;
   background:transparent;
   color:inherit;
   display:flex; align-items:center; justify-content:center; position:relative;
-  cursor: pointer;                  /* visible que se puede pulsar si es libre */
+  cursor: pointer;
 }
 
 /* Seleccionado: marco azul (sin rellenar) */
@@ -215,31 +171,20 @@ body{
   background: transparent;
   color: inherit;
   border-color: var(--brand-600);
-  border-width: 2px;                /* marca el “marco” azul */
+  border-width: 2px;
 }
 
-/* Ocupado / Reservado: no seleccionables y con cursor bloqueado */
+/* Ocupado / Reservado */
 .seat[data-status="occupied"]{
   background:#fee2e2; color:#991b1b; border-color:#991b1b;
 }
 .seat[data-status="reserved"]{
   background:#fef3c7; color:#92400e; border-color:#92400e;
 }
-/* además, semántica accesible (aria-disabled) */
-.seat[aria-disabled="true"]{
-  cursor: not-allowed;
-  /* opcional: un pelín de opacidad extra */
-  /* opacity: .85; */
-}
-
-/* Alto contraste: mantenemos tu override */
 :root[data-theme="hc"] .seat[data-status="selected"]{
   outline:2px solid #ff0; background:transparent; color:inherit;
 }
-
 .seat[data-active="1"]{ outline:var(--focus-ring); outline-offset:var(--focus-offset); }
-
-
 
 /* ==== Alerts & Notices ==== */
 .alert{
@@ -283,4 +228,3 @@ body{
 :root[data-theme="dark"] .tag[data-tone="warning"]{ color:#fde68a; border-color:#fde68a; }
 :root[data-theme="dark"] .tag[data-tone="error"]{   color:#fecaca; border-color:#fecaca; }
 :root[data-theme="dark"] .tag[data-tone="info"]{    color:#bfdbfe; border-color:#bfdbfe; }
-

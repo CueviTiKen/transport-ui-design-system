@@ -83,12 +83,34 @@ export default function App(){
 
       {/* Formulario del planificador */}
       <form onSubmit={submit} noValidate>
-        <Field label="Origen" help="Escribe una parada (ej. 'Logroño') y usa flechas para moverte por los resultados." error={errs.find(e=>e.id==="origen")?.message} id="origen">
-          <Combobox value={form.origen} onChange={(val)=>setForm(f=>({...f, origen:val}))} options={stops} placeholder="Busca origen…" />
+        <Field
+          label="Origen"
+          help="Escribe una parada (ej. 'Logroño') y usa flechas para moverte por los resultados."
+          error={errs.find(e=>e.id==="origen")?.message}
+          id="origen"
+        >
+          <Combobox
+            highlightOnOpen
+            value={form.origen}
+            onChange={(val)=>setForm(f=>({...f, origen:val}))}
+            options={stops}
+            placeholder="Busca origen…"
+          />
         </Field>
 
-        <Field label="Destino" help="Navega con flechas, Enter para seleccionar, Esc para cerrar." error={errs.find(e=>e.id==="destino")?.message} id="destino">
-          <Combobox value={form.destino} onChange={(val)=>setForm(f=>({...f, destino:val}))} options={stops} placeholder="Busca destino…" />
+        <Field
+          label="Destino"
+          help="Navega con flechas, Enter para seleccionar, Esc para cerrar."
+          error={errs.find(e=>e.id==="destino")?.message}
+          id="destino"
+        >
+          <Combobox
+            highlightOnOpen
+            value={form.destino}
+            onChange={(val)=>setForm(f=>({...f, destino:val}))}
+            options={stops}
+            placeholder="Busca destino…"
+          />
         </Field>
 
         <Field label="Fecha del viaje" help="Pulsa 📅 o Alt+↓/Enter para abrir el calendario (dd/mm/aaaa)." error={errs.find(e=>e.id==="dia")?.message} id="dia">
@@ -100,8 +122,16 @@ export default function App(){
         </Field>
 
         <Field label="Tarifa" help="Selecciona un tipo de billete">
-          <Select id="tarifa" value={form.tarifa} onChange={e=>setForm(f=>({...f, tarifa:e.target.value}))}
-            options={[{ value:"", label:"Selecciona…" },{ value:"normal", label:"Normal" },{ value:"joven",  label:"Joven" },{ value:"pmr",    label:"PMR" }]}
+          <Select
+            id="tarifa"
+            value={form.tarifa}
+            onChange={e=>setForm(f=>({...f, tarifa:e.target.value}))}
+            options={[
+              { value:"", label:"Selecciona…" },
+              { value:"normal", label:"Normal" },
+              { value:"joven",  label:"Joven" },
+              { value:"pmr",    label:"PMR" }
+            ]}
           />
         </Field>
 

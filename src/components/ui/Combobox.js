@@ -11,6 +11,7 @@ import { useDebouncedValue } from "../../utils/useDebouncedValue";
  * - onChange: (val: string) => void
  * - placeholder?: string
  * - id?: string  (lo inyecta Field si se usa dentro)
+ * - highlightOnOpen?: boolean  // Si true, pinta la barra superior en naranja al abrir (controlado por CSS)
  * - ...ariaProps (aria-describedby, aria-invalid, required, etc. -> Field los pasa)
  */
 export default function Combobox({
@@ -19,6 +20,7 @@ export default function Combobox({
   onChange,
   placeholder,
   id,
+  highlightOnOpen = false,
   ...ariaProps
 }) {
   const uid = useId().replace(/:/g, ""); // evita ':' en ids en algunos navegadores
@@ -64,7 +66,7 @@ export default function Combobox({
     return () => document.removeEventListener("mousedown", onDocDown);
   }, []);
 
-  // Manejo de teclado
+  // Teclado
   const onKeyDown = (e) => {
     const count = filtered.length;
     if (e.key === "ArrowDown") {
@@ -101,9 +103,7 @@ export default function Combobox({
     onChange?.(val);
     setOpen(false);
     setActiveIndex(-1);
-    // Mensaje para lectores de pantalla
     if (liveRef.current) liveRef.current.textContent = `Seleccionado: ${val}`;
-    // Devuelve el foco al input
     inputRef.current?.focus();
   };
 
@@ -121,26 +121,33 @@ export default function Combobox({
       : undefined;
 
   return (
-    <div className="combo" ref={containerRef}>
-      <input
-        ref={inputRef}
-        id={inputId}
-        className="combo-input"
-        role="combobox"
-        aria-autocomplete="list"
-        aria-expanded={open ? "true" : "false"}
-        aria-controls={listId}
-        aria-activedescendant={activeId}
-        placeholder={placeholder}
-        value={value || ""}
-        onChange={onInputChange}
-        onKeyDown={onKeyDown}
-        onFocus={() => setOpen(true)}
-        autoComplete="off"
-        spellCheck={false}
-        {...ariaProps}
-      />
-
+    <div
+      className="combo"
+      ref={containerRef}
+      data-open={open ? "1" : "0"}
+      data-highlight={highlightOnOpen ? "true" : undefined}
+    >
+      <div className="combo-wrapper">
+        <span className="combo-arrow">▼</span>
+        <input
+          ref={inputRef}
+          id={inputId}
+          className="combo-input"
+          role="combobox"
+          aria-autocomplete="list"
+          aria-expanded={open ? "true" : "false"}
+          aria-controls={listId}
+          aria-activedescendant={activeId}
+          placeholder={placeholder}
+          value={value || ""}
+          onChange={onInputChange}
+          onKeyDown={onKeyDown}
+          onFocus={() => setOpen(true)}
+          autoComplete="off"
+          spellCheck={false}
+          {...ariaProps}
+        />
+      </div>
       {open && (
         <ul
           ref={listRef}
