@@ -196,7 +196,7 @@ const DatePickerPopover = React.forwardRef(function DatePickerPopover(
           ◀
         </button>
         <div className="datepicker__title" id={titleId} aria-live="polite">
-          {monthDate.toLocaleDateString("es-ES", { month: "long", year: "numeric" })}
+          {monthDate.toLocaleDateString("es-ES", { month: "long" })}
         </div>
         <button
           type="button"

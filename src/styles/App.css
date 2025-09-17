@@ -1153,6 +1153,10 @@ select.tarifa-select:focus-visible {
 
 /* Alto contraste */
 :root[data-theme="hc"] .ticket{ border-color:#fff; }
+:root[data-theme="dark"] .ticket__route {
+  color: #fff !important;
+  border-bottom-color: #fff !important;
+}
 
 .section-header {
   color: var(--accent, #ff7a00);
@@ -1381,3 +1385,24 @@ select.tarifa-select:focus-visible {
   margin-left: 1rem;    /* Espacio entre el input y el calendario */
   z-index: 10;
 }
+
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] .container,
+:root[data-theme="dark"] .seatmap__grid,
+:root[data-theme="dark"] .datepicker,
+:root[data-theme="dark"] .dialog,
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .linecard__body,
+:root[data-theme="dark"] .schedule__return {
+  color: var(--on-accent, #fff); /* texto claro en fondo oscuro */
+}
+
+/* Si el fondo es blanco o gris claro, fuerza texto oscuro */
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .dialog,
+:root[data-theme="dark"] .alert,
+:root[data-theme="dark"] .linecard--simple,
+:root[data-theme="dark"] .ticket {
+  color: var(--text, #111827); /* texto oscuro en fondo claro */
+}
+
