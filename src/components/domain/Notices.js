@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import Alert from "../ui/Alert";
+import Boton from "../Boton";
 
 /**
  * Avisos e incidencias (filtrables por severidad, texto, línea y fecha).
@@ -91,16 +92,32 @@ export default function Notices({ items = [] }) {
 
       <div className="notices__list">
         {filtered.map(n => (
-          <Alert key={n.id} tone={n.severity} title={composeTitle(n)}>
+          <Alert
+            key={n.id}
+            tone={n.severity}
+            title={composeTitle(n)}
+            action={
+              n.url ? (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <a href={n.url} target="_blank" rel="noreferrer" style={{ textDecoration: "none" }}>
+                    <Boton texto="Más información" />
+                  </a>
+                </div>
+              ) : null
+            }
+          >
             <>
               {n.description && <p style={{ margin: 0 }}>{n.description}</p>}
-              <p style={{ margin: "0.5rem 0 0" }}>
-                <a href={n.url} target="_blank" rel="noreferrer">
-                  {n.urlLabel || "Más información"}
-                </a>
-              </p>
               {n.startsAt && (
-                <p style={{ margin: "0.25rem 0 0", fontSize: ".9rem", opacity: .85 }}>
+                <p
+                  style={{
+                    margin: "0.25rem 0 0",
+                    fontSize: ".9rem",
+                    color: "var(--accent, #ff7a00)",
+                    textAlign: "right",
+                    fontWeight: 500
+                  }}
+                >
                   Publicado: {formatDateTime(n.startsAt)}
                 </p>
               )}
@@ -126,7 +143,7 @@ function composeTitle(n) {
 function formatDateTime(iso) {
   try {
     const d = new Date(iso);
-    return d.toLocaleString("es-ES", { dateStyle: "medium", timeStyle: "short" });
+    return d.toLocaleDateString("es-ES", { dateStyle: "medium" }); // solo día
   } catch {
     return iso;
   }

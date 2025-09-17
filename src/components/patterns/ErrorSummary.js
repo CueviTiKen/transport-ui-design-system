@@ -1,8 +1,12 @@
 import React, { useEffect, useRef } from "react";
 
-export default function ErrorSummary({ title = "Corrige los errores", errors = [] }) {
+export default function ErrorSummary({
+  title = "Corrige los errores",
+  errors = [],
+}) {
   const ref = useRef(null);
 
+  // Al aparecer, lleva el foco al contenedor
   useEffect(() => {
     if (errors.length) ref.current?.focus();
   }, [errors.length]);
@@ -15,32 +19,36 @@ export default function ErrorSummary({ title = "Corrige los errores", errors = [
       tabIndex={-1}
       role="alert"
       aria-labelledby="errsum-title"
-      style={{
-        border: "2px solid #b91c1c",
-        padding: "1rem",
-        borderRadius: "8px",
-        marginBottom: "1rem"
-      }}
+      className="error-summary"
     >
-      <h2 id="errsum-title" style={{ marginTop: 0 }}>
-        {title}
-      </h2>
-      <ul>
-        {errors.map((e) => (
-          <li key={e.id}>
-            <a
-              href={`#${e.id}`}
-              onClick={(ev) => {
-                ev.preventDefault();
-                const el = document.getElementById(e.id);
-                if (el) el.focus();
-              }}
-            >
-              {e.message}
-            </a>
-          </li>
-        ))}
-      </ul>
+      <div className="error-summary__header">
+        <h2 id="errsum-title" className="error-summary__title">
+          {title}
+        </h2>
+      </div>
+
+      <div className="error-summary__body">
+        <ul className="error-summary__list">
+          {errors.map((e) => (
+            <li key={e.id} className="error-summary__item">
+              <a
+                className="error-summary__link"
+                href={`#${e.id}`}
+                onClick={(ev) => {
+                  ev.preventDefault();
+                  const el = document.getElementById(e.id);
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth", block: "center" }); // mueve al inicio del viewport
+                    setTimeout(() => el.focus(), 400); // espera a que termine el scroll antes de hacer focus
+                  }
+                }}
+              >
+                {e.message}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

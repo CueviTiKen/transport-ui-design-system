@@ -27,8 +27,7 @@ export default function SeatSelector({
       for (let c = 0; c < cols; c++) {
         const sid = `${letters[r]}${c + 1}`;
         let status = "free";
-        if (occupied.includes(sid)) status = "occupied";
-        else if (reserved.includes(sid)) status = "reserved";
+        if (occupied.includes(sid) || reserved.includes(sid)) status = "occupied";
         row.push({ id: sid, status, r, c });
       }
       grid.push(row);
@@ -139,8 +138,6 @@ export default function SeatSelector({
       <div className="seatmap__legend" aria-hidden="true">
         <span className="seat" data-status="selected" style={{ width: 16, height: 16 }} />
         <small>Seleccionado</small>
-        <span className="seat" data-status="reserved" style={{ width: 16, height: 16 }} />
-        <small>Reservado</small>
         <span className="seat" data-status="occupied" style={{ width: 16, height: 16 }} />
         <small>Ocupado</small>
       </div>

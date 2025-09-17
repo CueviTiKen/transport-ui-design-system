@@ -128,7 +128,6 @@ export default function Combobox({
       data-highlight={highlightOnOpen ? "true" : undefined}
     >
       <div className="combo-wrapper">
-        <span className="combo-arrow">▼</span>
         <input
           ref={inputRef}
           id={inputId}
@@ -147,6 +146,7 @@ export default function Combobox({
           spellCheck={false}
           {...ariaProps}
         />
+        <span className="combo-arrow">▼</span>
       </div>
       {open && (
         <ul

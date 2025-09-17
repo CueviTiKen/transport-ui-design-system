@@ -1,33 +1,114 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
+import Dialog from "../ui/Dialog";
 
-export default function TicketCard({ ticket, id }) {
-  const { locator, buyer, planner, schedule, seat, total, status, leg } = ticket;
+export default function TicketCard({ id, ticket }) {
+  // Hooks SIEMPRE al tope (nunca detrás de returns)
+  const [open, setOpen] = useState(false);
+
+  // Desestructuración segura aunque ticket sea null
+  const schedule   = ticket?.schedule ?? null;
+  const seat       = ticket?.seat ?? null;
+  const locator    = ticket?.locator ?? "—";
+  const groupId    = ticket?.groupId ?? null;
+  const buyer      = ticket?.buyer ?? null;
+  const planner    = ticket?.planner ?? null;
+  const leg        = ticket?.leg ?? "outbound";
+
+  const origin      = schedule?.origin ?? "—";
+  const destination = schedule?.destination ?? "—";
+  const depart      = schedule?.depart ?? "00:00";
+  const arrive = useMemo(
+    () => (schedule ? addMinutesToTime(schedule.depart, schedule.durationMin) : "00:00"),
+    [schedule]
+  );
+
+  const titleId = `${id || locator || "ticket"}-title`;
+
+  // Ahora ya podemos salir si no hay ticket, sin romper reglas de hooks
+  if (!ticket) return null;
+
   return (
-    <article id={id} tabIndex={-1} className="card" aria-label={`Ticket ${locator}`}>
-      <h3 style={{ marginTop: 0 }}>Billete {leg === "return" ? "de vuelta" : "de ida"}</h3>
-      <p style={{ marginTop: 0 }}>
-        Localizador: <strong>{locator}</strong> {status && <em style={{ opacity:.8 }}>({labelStatus(status)})</em>}
-      </p>
+    <>
+      <article id={id} className="ticket" tabIndex={-1} aria-labelledby={titleId}>
+        <header className="ticket__header">
+          <h3 id={titleId} className="ticket__title">Billete — Autobuses Jiménez</h3>
+        </header>
 
-      <ul style={{ listStyle: "none", padding: 0, margin: "0 0 .5rem" }}>
-        <li><strong>Pasajero:</strong> {buyer.nombre} — <strong>Email:</strong> {buyer.email}</li>
-        <li><strong>Ruta:</strong> {planner.origen} → {planner.destino}</li>
-        <li><strong>Fecha:</strong> {planner.dia || "—"} {planner.hora ? `a las ${planner.hora}` : ""}</li>
-        <li><strong>Línea:</strong> #{schedule.line}</li>
-        <li><strong>Salida:</strong> {schedule.depart} · <strong>Llegada:</strong> {addMinutesToTime(schedule.depart, schedule.durationMin)}</li>
-        <li><strong>Asiento:</strong> {seat || "—"}</li>
-        <li><strong>Precio:</strong> {formatPrice(total)}</li>
-      </ul>
+        <div className="ticket__body">
+          <h4 className="ticket__route">{origin} — {destination}</h4>
 
-      <div style={{ display:"flex", gap:".5rem", flexWrap:"wrap", marginTop:".5rem" }}>
-        <button type="button" className="btn" onClick={() => window.print()}>Imprimir</button>
-        <button type="button" className="btn" onClick={() => navigator.clipboard?.writeText(locator)}>Copiar localizador</button>
-      </div>
-    </article>
+          <div className="ticket__info">
+            <p><strong>Salida:</strong> {depart}h — {origin}</p>
+            <p><strong>Llegada:</strong> {arrive}h — {destination}</p>
+            {seat && <p><strong>Asiento:</strong> {seat}</p>}
+          </div>
+
+          <footer className="ticket__footer">
+            <small className="ticket__code">Código de seguimiento: {locator}</small>
+            <button type="button" className="btn ticket__cta" onClick={() => setOpen(true)}>
+              Más información
+            </button>
+          </footer>
+        </div>
+      </article>
+
+      <Dialog open={open} onClose={() => setOpen(false)} title="Detalles del billete">
+        <h4 style={{ marginTop: 0, color: "var(--accent)" }}>
+          {origin} — {destination}
+        </h4>
+
+        <table className="table" style={{ marginTop: ".5rem" }}>
+          <tbody>
+            <tr><th scope="row">Línea</th><td>#{schedule?.line ?? "—"}</td></tr>
+            <tr><th scope="row">Salida</th><td>{origin} • {depart}h</td></tr>
+            <tr><th scope="row">Llegada</th><td>{destination} • {arrive}h</td></tr>
+            <tr><th scope="row">Duración</th><td>{formatDuration(schedule?.durationMin ?? 0)}</td></tr>
+            <tr><th scope="row">Ocupación</th><td>{occupancyLabel(schedule?.occupancy)}</td></tr>
+            <tr><th scope="row">Asiento</th><td>{seat || "—"}</td></tr>
+            <tr><th scope="row">Precio</th><td className="precio">{formatPrice(schedule?.price ?? 0)}</td></tr>
+            <tr><th scope="row">Localizador</th><td>{locator}</td></tr>
+            {groupId && <tr><th scope="row">Grupo de reserva</th><td>{groupId}</td></tr>}
+            {buyer && (
+              <>
+                <tr><th scope="row">Comprador</th><td>{buyer.nombre || "—"}</td></tr>
+                <tr><th scope="row">Email</th><td>{buyer.email || "—"}</td></tr>
+              </>
+            )}
+            {planner && (
+              <>
+                <tr><th scope="row">Fecha del viaje</th><td>{planner.dia || "—"} {planner.hora ? `a las ${planner.hora}` : ""}</td></tr>
+                <tr><th scope="row">Tarifa</th><td>{planner.tarifa || "—"}</td></tr>
+              </>
+            )}
+            <tr><th scope="row">Tramo</th><td>{leg === "return" ? "Vuelta" : "Ida"}</td></tr>
+          </tbody>
+        </table>
+
+        <div style={{ display: "flex", gap: ".5rem", marginTop: "1rem" }}>
+          <button className="btn" type="button" onClick={() => setOpen(false)}>Cerrar</button>
+        </div>
+      </Dialog>
+    </>
   );
 }
 
-function labelStatus(s){ return s === "cancelled" ? "anulado" : s === "confirmed" ? "confirmado" : s; }
-function formatPrice(n) { return new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" }).format(n); }
+/* ===== Utils ===== */
 function toMinutes(hhmm) { const [h, m] = String(hhmm).split(":").map(Number); return h * 60 + m; }
-function addMinutesToTime(hhmm, add) { const total = toMinutes(hhmm) + add; const h = Math.floor(total / 60) % 24; const m = total % 60; return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}`; }
+function addMinutesToTime(hhmm, add) {
+  const total = toMinutes(hhmm) + add;
+  const h = Math.floor(total / 60) % 24, m = total % 60;
+  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+}
+function formatDuration(mins) {
+  const h = Math.floor((mins || 0) / 60), m = (mins || 0) % 60;
+  return h > 0 ? `${h} h ${m} min` : `${m} min`;
+}
+function formatPrice(n) { return new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" }).format(n || 0); }
+function occupancyLabel(lvl) {
+  switch (lvl) {
+    case "low": return "Ocupación baja";
+    case "medium": return "Ocupación media";
+    case "high": return "Ocupación alta";
+    default: return "—";
+  }
+}

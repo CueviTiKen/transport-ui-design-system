@@ -1,15 +1,24 @@
-/* ===== Base ===== */
+/* ====== TOKENS REQUERIDOS ======
+   Este archivo asume que importas antes styles/tokens.css
+   (no dupliques aquí los tokens)
+*/
+
+/* ===========================
+   Base
+   =========================== */
 * { box-sizing: border-box; }
 html, body { height: 100%; }
-body {
-  margin: 0;
+body{
+  margin:0;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-base, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif);
   font-size: var(--font-size-body, 16px);
   line-height: var(--line-height-body, 1.55);
 }
-.container { max-width: 980px; margin: 0 auto; padding: var(--space-4, 1rem); }
+
+/* Utilidades de layout */
+.container{ max-width:980px; margin-inline:auto; padding:var(--space-4,1rem); }
 
 /* Tipografía */
 h1, h2, h3 { line-height: 1.25; margin: 0 0 var(--space-4, 1rem); }
@@ -18,61 +27,72 @@ h2 { font-size: var(--font-size-h2, 1.375rem); line-height: var(--line-height-h2
 h3 { font-size: var(--font-size-h3, 1.125rem); line-height: var(--line-height-h3, 1.3); }
 small { font-size: var(--font-size-small, .9rem); line-height: var(--line-height-small, 1.4); }
 
-/* Focus visible */
-:where(button, [role="button"], a, input:not(.combo-input), select, textarea):focus-visible {
+/* Accesibilidad: foco visible */
+:where(a,button,input,select,textarea,summary):focus-visible{
   outline: var(--focus-ring, 2px solid var(--text));
   outline-offset: var(--focus-offset, 2px);
 }
 
 /* App header */
-.App { text-align: left; }
-.app-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4, 1rem);
-  margin-bottom: var(--space-4, 1rem);
+.App { text-align:left; }
+.app-header{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:var(--space-4,1rem); margin-bottom:var(--space-4,1rem);
 }
-.theme-switcher { display: inline-flex; gap: var(--space-2, .5rem); }
-.app-logo { height: 40px; }
-@keyframes gentle-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-.spin { animation: gentle-spin infinite 20s linear; }
+.theme-switcher{ display:inline-flex; gap:var(--space-2,.5rem); }
+.app-logo{ height:40px; }
+@keyframes gentle-spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+.spin{ animation: gentle-spin 20s linear infinite; }
 
-/* Botón */
+/* ===========================
+   Botón
+   =========================== */
+
 .btn{
-  display: inline-flex; align-items: center; justify-content: center;
-  gap: .5rem;
-  padding: .625rem .75rem;
-  border: 1px solid transparent;
-  border-radius: var(--radius-sm, 6px);
-  background: var(--accent, var(--brand-600, #ff7a00));
-  color: var(--on-accent, #fff);
-  cursor: pointer;
+  height: 50px;
+  min-width: 50px;
+  max-width: 1200px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:.5rem; padding:.625rem .75rem;
+  border:1px solid transparent; border-radius:var(--radius-lg,24px);
+  background: var(--accent, #ff7a00); color: var(--on-accent, #fff);
+  cursor:pointer; text-decoration:none;
   transition: background var(--motion-1, .15s ease), transform var(--motion-1, .15s ease);
-  text-decoration: none;
 }
-.btn:hover { background: color-mix(in srgb, var(--accent, var(--brand-600, #ff7a00)) 88%, black); }
-.btn:active { background: color-mix(in srgb, var(--accent, var(--brand-600, #ff7a00)) 80%, black); transform: translateY(1px); }
-.btn[disabled], .btn[aria-disabled="true"] { opacity:.6; cursor:not-allowed; }
+.btn:hover{ background: color-mix(in srgb, var(--accent, #ff7a00) 88%, #000); }
+.btn:active{ background: color-mix(in srgb, var(--accent, #ff7a00) 80%, #000); transform: translateY(1px); }
+.btn[disabled], .btn[aria-disabled="true"]{ opacity:.6; cursor:not-allowed; }
 
-/* Fuerza naranja para el conmutador de tema */
+/* Conmutador de tema siempre naranja */
 .theme-switcher .btn{
-  background: var(--accent, var(--brand-600, #ff7a00)) !important;
-  color: var(--on-accent, #fff) !important;
-  border-color: var(--accent, var(--brand-600, #ff7a00)) !important;
+  background: var(--accent, #ff7a00);
+  color: var(--on-accent, #fff);
+  border-color: var(--accent, #ff7a00);
 }
-.theme-switcher .btn:hover { background: color-mix(in srgb, var(--accent, var(--brand-600, #ff7a00)) 88%, black) !important; }
-.theme-switcher .btn:active { background: color-mix(in srgb, var(--accent, var(--brand-600, #ff7a00)) 80%, black) !important; }
+.theme-switcher .btn:hover{ background: color-mix(in srgb, var(--accent, #ff7a00) 88%, #000); }
+.theme-switcher .btn:active{ background: color-mix(in srgb, var(--accent, #ff7a00) 80%, #000); }
 
-/* Card */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-1);
+/* ===========================
+   Card
+   =========================== */
+.card{
+  background: var(--surface, #fff);
+  color: var(--text, #111827);
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: var(--radius-md, 10px);
+  box-shadow: var(--shadow-1, 0 2px 10px rgba(0,0,0,.08));
   padding: var(--space-4, 1rem);
+  margin: var(--space-3, 1rem) 0;
 }
 
-/* Tabla */
+/* ===========================
+   Tabla (base)
+   =========================== */
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -80,313 +100,1284 @@ small { font-size: var(--font-size-small, .9rem); line-height: var(--line-height
   border: 1px solid var(--border, #e5e7eb);
   border-radius: var(--radius-sm, 6px);
   overflow: hidden;
+  margin: 1rem 0;
 }
-.table th, .table td{ padding: .625rem .75rem; border-bottom: 1px solid var(--border, #e5e7eb); text-align:left; }
-.table thead th{ background: color-mix(in srgb, var(--surface, #fff) 70%, var(--bg, #fff)); font-weight: 600; }
-.table__caption { caption-side: top; text-align: left; padding: .5rem 0; opacity:.85; }
-.table__sort { background: transparent; border: 0; cursor: pointer; color: inherit; font: inherit; }
-.table__sorticon { opacity: .6; }
+.table th, .table td{
+  padding:.625rem .75rem; border-bottom:1px solid var(--border, #e5e7eb); text-align:left;
+}
+.table th {
+  color: var(--accent, #ff7a00);
+  font-weight: 600;
+}
+.table thead th{ border-bottom:2px solid var(--border, #e5e7eb); background: color-mix(in srgb, var(--surface, #fff) 70%, var(--bg, #fff)); font-weight:600; }
+.table__caption { caption-side: top; text-align: left; padding: .5rem 0; opacity:.85; font-weight:600; }
+.table__sort { background: transparent; border: 0; cursor: pointer; color: inherit; font: inherit; display:inline-flex; align-items:center; }
+.table__sorticon { margin-left:.25rem; opacity:.6; }
 
-/* Field / forms */
-.field { margin-bottom: var(--space-4, 1rem); }
-.field > label { display:block; font-weight:600; margin-bottom:.375rem; }
-.help { font-size:.95rem; opacity:.85; margin-top:.25rem; }
-.error { color: var(--error, var(--error-600, #b91c1c)); margin-top:.25rem; }
+/* ===========================
+   Estilo de las celdas de precio
+   =========================== */
+.table .precio,
+.table td.precio {
+  color: var(--accent, #ff7a00);
+  font-weight: 600;
+}
+
+/* =========================================
+   SELECTS de ScheduleList (Línea / Ocupación)
+   Estilo: píldora gris, bordes 24px, flecha ▼/▲,
+   hover en naranja y foco en naranja con texto blanco
+   ========================================= */
+
+/* Contenedor de controles */
+.schedule__controls{
+  display:flex;
+  gap:1rem;
+  align-items:center;
+  flex-wrap:wrap;
+  margin:.5rem 0 1rem;
+}
+
+/* El <label> sirve para colocar la flecha encima del select */
+.schedule__controls label{
+  position: relative;
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+}
+
+/* Select estilo “píldora” */
+.schedule__controls label > select{
+  appearance:none; -webkit-appearance:none; -moz-appearance:none;
+  height:50px;
+  line-height:50px;
+  min-width:160px;
+  padding:0 2.25rem 0 .75rem;              /* hueco para la flecha */
+  border:none !important;
+  border-radius:var(--radius-lg,24px) !important;
+  background-color:var(--surface,#F6F6F6) !important;
+  color:var(--text) !important;
+  box-shadow:none !important;
+  font:inherit;
+  cursor:pointer;
+  transition:background-color .15s ease, color .15s ease, filter .15s ease;
+}
+
+/* Hover: solo cambia la tipografía a naranja (como el resto) */
+.schedule__controls label > select:hover{
+  color:var(--accent,#ff7a00) !important;
+}
+
+/* Foco / abierto: fondo naranja, texto blanco */
+.schedule__controls label > select:focus,
+.schedule__controls label > select:focus-visible{
+  outline:none;
+  background-color:var(--accent) !important;
+  color:var(--on-accent,#fff) !important;
+}
+
+/* Flecha como carácter (sin SVG/imagenes) */
+.schedule__controls label::after{
+  content:"▼";
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:1.1em;
+  font-weight:700;
+  line-height:1;
+  color:var(--border);
+  pointer-events:none; /* no bloquea clics */
+}
+
+/* En foco (menú abierto), invierte flecha y orientación */
+.schedule__controls label:focus-within::after{
+  content:"▲";
+  color:var(--on-accent,#fff);
+}
+
+/* Deshabilitado */
+.schedule__controls label > select:disabled{
+  opacity:.6; cursor:not-allowed;
+}
+
+/* Estilo de las opciones dentro del menú (donde el navegador lo permite) */
+.schedule__controls label > select option:hover,
+.schedule__controls label > select option:focus,
+.schedule__controls label > select option:checked{
+  color:var(--accent,#ff7a00) !important;
+  background:var(--surface,#F6F6F6) !important;
+}
+
+/* Alto contraste */
+:root[data-theme="hc"] .schedule__controls label > select{
+  background:transparent !important;
+  color:#fff !important;
+  border:2px solid #fff !important;
+}
+:root[data-theme="hc"] .schedule__controls label::after{ color:#fff; }
+:root[data-theme="hc"] .schedule__controls label:focus-within::after{ color:#000; }
+
+
+
+/* ===========================
+   Field / forms
+   =========================== */
+.field{ margin:1rem 0; }
+.field > label{ display:block; font-weight:600; margin-bottom:.375rem; }
+.help{ font-size:.95rem; opacity:.85; margin-top:.25rem; }
+.error{ color: var(--error, #b91c1c); margin-top:.25rem; font-weight:600; }
 
 /* Inputs base */
-input[type="text"]:not(.combo-input), 
-input[type="email"], 
+input[type="text"]:not(.combo-input),
+input[type="email"],
 input[type="search"]:not(.combo-input),
-.time-input__text, 
-.date-input__text, 
-select, 
-textarea {
-  width: 100%;
-  padding: .625rem .75rem;
-  font: inherit;
-  color: inherit;
-  background: transparent;
-  border: 1px solid var(--border, #e5e7eb);
-  border-radius: 8px;
+.time-input__text,
+.date-input__text,
+select,
+textarea{
+  width:100%; padding:.625rem .75rem; font:inherit; color:inherit;
+  background: transparent; border:1px solid var(--border, #e5e7eb); border-radius:8px;
 }
 
-/* Input “pastilla” (si lo usas) */
-.ui-input {
-  width: 100%;
-  padding: 1rem 1.25rem;
-  border: 0;
-  background: var(--surface);
-  border-radius: 9999px;
-  box-shadow: none;
+/* Input “pastilla” (sólo si lo usas con Field labelInside) */
+.ui-input{
+  width:100%; padding:1rem 1.25rem; border:0;
+  background: var(--surface, #fff); border-radius:9999px; box-shadow:none;
 }
-.ui-input--pill { border-radius: 9999px; }
-.ui-input::placeholder {
-  color: var(--placeholder);
-}
-.ui-input:focus-visible {
-  outline: var(--focus-ring, 2px solid var(--text));
-}
+.ui-input--pill{ border-radius:9999px; }
+.ui-input::placeholder{ color: var(--placeholder, #9ca3af); }
+.ui-input:focus-visible{ outline: var(--focus-ring, 2px solid var(--text)); }
 
 /* ===========================
    COMBOBOX (versión única)
    =========================== */
-/* Combobox base */
-.combo {
-  position: relative;
-  margin-bottom: 1rem; /* Mantener el espacio entre combos */
+.combo{ position:relative; margin-bottom:1rem; }
+.combo[data-open="1"]{ z-index:60; }
+.combo-wrapper{ position:relative; z-index:52; width:100%; }
+
+/* Input del combo */
+.combo .combo-input{
+  position:relative; width:100%; padding:.625rem .75rem; font:inherit;
+  background: var(--surface) !important; color: var(--text);
+  border:1px solid var(--border); border-radius: var(--radius-sm, 8px);
+}
+/* Al abrir: barra superior naranja (input naranja + texto blanco) */
+.combo[data-open="1"] .combo-input{
+  background: var(--accent) !important;
+  color: var(--on-accent, #fff);
+  border-color: var(--accent);
 }
 
-/* Estado abierto - eliminar la transformación */
-.combo[data-open="1"] {
-  z-index: 60; /* Mantener el z-index alto cuando está abierto */
-}
-
-/* Input wrapper */
-.combo-wrapper {
-  position: relative;
-  z-index: 52;
-  width: 100%;
-}
-
-/* Input styles */
-.combo .combo-input {
-  position: relative;
-  width: 100%;
-  padding: 0.625rem 0.75rem;
-  font: inherit;
-  background-color: var(--surface) !important;
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-}
-
-/* Lista de opciones */
-.combo-list {
-  position: absolute;
-  z-index: 50;
-  width: 100%;
-  top: 10px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+/* Lista del combo (menú) */
+.combo-list{
+  position:absolute; z-index:50; width:100%; top:10px;
+  background: var(--surface); border:none;
   box-shadow: var(--shadow-1);
-  list-style: none;  /* Asegurar que no hay bullets */
-  padding: 45px 0 0 0;  /* Resetear padding lateral y mantener el superior */
-  margin: 0;  /* Resetear márgenes */
-  max-height: 280px;
-  overflow: auto;
-  animation: slideDown 0.2s ease-out;
-  transform-origin: top;
+  border-radius: var(--radius-sm, 8px) var(--radius-sm, 8px) 24px 24px;
+  list-style:none; padding:45px 0 0 0; margin:0;
+  max-height:280px; overflow:auto;
+  animation: slideDown .2s ease-out; transform-origin: top;
 }
+@keyframes slideDown{ from{opacity:0; transform:scaleY(0)} to{opacity:1; transform:scaleY(1)} }
 
-/* Modificar la animación */
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: scaleY(0);
-  }
-  to {
-    opacity: 1;
-    transform: scaleY(1);
-  }
-}
-
-/* Ajustar el scrollbar para que no tape el contenido */
-.combo-list::-webkit-scrollbar {
-  width: 8px;
-  margin-top: 40px; /* Alinear con el contenido */
-}
-
-.combo-list::-webkit-scrollbar-track {
-  background: var(--bg, #f3f4f6);
-  border-radius: 4px;
-}
-
-.combo-list::-webkit-scrollbar-thumb {
-  background-color: var(--border, #e5e7eb);
-  border-radius: 4px;
-}
+/* Scrollbar del menú */
+.combo-list::-webkit-scrollbar{ width:8px; margin-top:40px; }
+.combo-list::-webkit-scrollbar-track{ background: var(--bg); border-radius:4px; }
+.combo-list::-webkit-scrollbar-thumb{ background-color: var(--border); border-radius:4px; }
 
 /* Opción */
-.combo-list .combo-option {
-  list-style-type: none;  /* Redundante pero asegura compatibilidad */
-  padding: 0.5rem 0.75rem;
-  cursor: pointer;
-  color: var(--text, #111827);
+.combo-list .combo-option{
+  padding:.5rem .75rem; cursor:pointer; color: var(--text, #111827);
 }
-
-/* Hover / activa: texto naranja, fondo transparente para no “ensuciar” */
 .combo-list .combo-option:hover,
-.combo-list .combo-option[data-active="true"] {
-  color: var(--accent, #ff7a00) !important;
-  background-color: transparent;
+.combo-list .combo-option[data-active="true"]{
+  color: var(--accent, #ff7a00); background: transparent;
 }
+.combo-empty{ padding:.5rem .75rem; opacity:.7; }
+
+/* Flecha */
+.combo-arrow{
+  position:absolute; right:12px; top:50%; transform:translateY(-50%);
+  font-size:1.2em; font-weight:bold; color: var(--border); pointer-events:none; transition: transform .2s ease, color .2s ease;
+}
+.combo[data-open="1"] .combo-arrow{ transform: translateY(-50%) rotate(180deg); color: var(--on-accent); }
 
 /* Focus del input del combo sin outline doble */
-.combo .combo-input:focus {
-  outline: none;
-  border-color: var(--border, #e5e7eb);
+.combo .combo-input:focus{ outline:none; border-color: var(--border); }
+
+/* ===========================
+   DATE INPUT & DATEPICKER
+   =========================== */
+.date-input__row{ display:flex; align-items:center; gap:var(--space-2, 8px); }
+
+/* Botón del calendario (cuadrado redondeado, naranja) */
+.date-input__button{
+  background: var(--accent); color: var(--on-accent,#fff);
+  border:none; width:50px; height:50px;
+  border-radius: 20px; display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem; cursor:pointer; padding:0; box-sizing:border-box;
+  transition: background .2s, box-shadow .2s;
+}
+.date-input__button:hover,
+.date-input__button:focus-visible{
+  background: color-mix(in srgb, var(--accent) 88%, black);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  outline:none;
 }
 
-/* Combobox arrow styles */
-.combo-arrow {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.2em;
-  font-weight: bold;
-  color: var(--border, #e5e7eb);  /* Color gris de la flecha */
-  pointer-events: none;
-  transition: transform 0.2s ease;
+/* Campo de texto de fecha */
+.date-input__text{
+  height:40px; font-size:1rem; padding:0 .75rem;
+  border:1px solid var(--border); border-radius: var(--radius-sm, 8px);
+  flex:1; background: var(--surface); color: var(--text);
+  transition: background 0.2s;
+}
+.date-input__text--active {
+  background: var(--accent);
+  color: var(--on-accent, #fff);
+}
+.date-input__text:focus,
+.date-input__button:focus{ outline:none; border-color: var(--border); }
+.date-input__text:focus-visible,
+.date-input__button:focus-visible{
+  outline: var(--focus-ring, 2px solid var(--accent));
+  outline-offset:2px; border-color: var(--accent);
 }
 
-.combo[data-open="1"] .combo-arrow {
-  transform: translateY(-50%) rotate(180deg);
-  color: var(--on-accent);
-}
-
-/* Datepicker */
+/* Popover del datepicker */
 .datepicker{
-  margin-top:.5rem;
-  background: var(--surface, #fff);
-  border:1px solid var(--border, #e5e7eb);
-  border-radius: var(--radius-md, 10px);
-  padding: var(--space-3, .75rem);
-  box-shadow: var(--shadow-1, 0 2px 10px rgba(0,0,0,.08));
+  position:absolute; z-index:10; margin-top:.5rem; padding:.5rem;
+  width:100%; max-width:240px;
+  background: var(--bg); /* Gris de los tokens */
+  color: var(--text);
+  border: none; /* Sin borde */
+  border-radius: var(--radius-lg, 24px); /* Bordes muy redondeados */
+  box-shadow: var(--shadow-1);
+  padding-top: 54px; /* Hueco para cabecera naranja */
 }
 .datepicker__header{
-  display:flex; align-items:center; justify-content:space-between; gap:.5rem; margin-bottom:.5rem;
+  display:flex; align-items:center; justify-content:space-between; gap:.5rem;
+  margin-bottom:0; background: var(--accent);
+  border-radius:24px; height:42px; padding:6px 0 8px 0;
+  width:100%; box-sizing:border-box;
+  position:absolute; top:0; left:0; right:0;
 }
-.datepicker__title{ font-weight:600; text-transform:capitalize; }
-.datepicker__grid{ display:block; }
-.datepicker__row{ display:grid; grid-template-columns: repeat(7, 1fr); gap:.25rem; margin-bottom:.25rem; }
+.datepicker__title{ font-size:1rem; font-weight:600; text-transform:capitalize; flex:1; text-align:center; color: var(--on-accent,#fff); }
+.datepicker__grid{ display:block; outline:none; }
+.datepicker__row{ display:grid; grid-template-columns: repeat(7, 1fr); gap:.15rem; margin-bottom: .15rem; }
 .datepicker__cell{
-  padding:.4rem .25rem; text-align:center; border:1px solid transparent; border-radius: var(--radius-sm, 6px); background:transparent;
+  padding: .25rem .1rem; font-size:.95rem; text-align:center; border:1px solid transparent;
+  border-radius: var(--radius-sm, 6px); background:transparent; color:inherit; cursor:pointer;
 }
 .datepicker__cell[data-out="1"]{ opacity:.45; }
-.datepicker__cell[data-today="1"]{ border-color: var(--accent, var(--brand-600, #ff7a00)); }
-.datepicker__cell[data-selected="1"]{ background: color-mix(in srgb, var(--surface, #fff) 60%, var(--bg, #fff)); border-color: var(--accent, var(--brand-600, #ff7a00)); }
+.datepicker__cell[data-today="1"]{ border-color: var(--accent, #ff7a00); }
+.datepicker__cell[data-selected="1"]{
+  background: color-mix(in srgb, var(--surface, #fff) 60%, var(--bg, #fff));
+  border-color: var(--accent, #ff7a00);
+}
 .datepicker__cell[data-active="1"]{ outline: var(--focus-ring, 2px solid var(--text)); }
-.datepicker__cell--head{ font-weight:600; text-transform:lowercase; opacity:.8; }
+.datepicker__cell--head{ color: var(--accent, #ff7a00); font-weight:600; text-transform:lowercase; opacity:.8; }
 .datepicker__help{ margin-top:.25rem; font-size:.9rem; opacity:.8; }
 
-/* Dialog */
+/* Botones dentro de la cabecera del datepicker: transparentes */
+.datepicker__header .btn{
+  background: transparent; color: var(--on-accent, #fff);
+  border: none; box-shadow: none;
+}
+.datepicker__header .btn:hover,
+.datepicker__header .btn:focus{
+  background: transparent; color: var(--on-accent, #fff); outline: none;
+}
+
+/* ===========================
+   Dialog / Modal
+   =========================== */
 .dialog-backdrop{
   position:fixed; inset:0; background: rgba(0,0,0,.45);
-  display:flex; align-items:center; justify-content:center;
-  z-index: 1000;
+  display:flex; align-items:center; justify-content:center; z-index:1000;
+  padding:1rem;
 }
 .dialog{
   width:min(660px, calc(100% - 2*var(--space-4, 1rem)));
-  background: var(--surface, #fff);
-  color: var(--text, #111827);
-  border:1px solid var(--border, #e5e7eb);
-  border-radius: var(--radius-md, 10px);
-  box-shadow: var(--shadow-1, 0 2px 10px rgba(0,0,0,.08));
-  padding: var(--space-4, 1rem);
+  background: var(--surface, #fff); color: var(--text, #111827);
+  border:1px solid var(--border, #e5e7eb); border-radius: var(--radius-md, 10px);
+  box-shadow: var(--shadow-1); padding: var(--space-4, 1rem); outline:none;
 }
-.dialog__header{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; margin-bottom: var(--space-3, .75rem); }
+.dialog__header{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; margin-bottom:.5rem; }
 .dialog__title{ margin:0; font-size: var(--font-size-h2, 1.375rem); line-height: var(--line-height-h2, 1.25); }
 .dialog__close{ background: transparent; border:1px solid var(--border, #e5e7eb); }
+.dialog__body{ line-height:1.6; }
 
-/* ErrorSummary */
+
+/* ===========================
+   ErrorSummary
+   =========================== */
+/* ===== ErrorSummary ===== */
 .error-summary{
-  border: 2px solid var(--error, var(--error-600, #b91c1c));
-  background: color-mix(in srgb, var(--surface, #fff) 85%, var(--error, #b91c1c) 15%);
-  padding: var(--space-4, 1rem);
-  border-radius: var(--radius-md, 10px);
+  --err: var(--error, #b91c1c);
+  --cap-h: 50px;         /* alto de la franja roja */
+  --bw: 3px;             /* grosor del borde */
+
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  min-width: 240px;
+  max-width: 100%;
   margin-bottom: var(--space-4, 1rem);
+
+  /* Borde real (rojo) + bordes redondeados del contenedor */
+  border: var(--bw) solid var(--err);
+  border-radius: 24px;
+  overflow: hidden;
+  border-width: 2px;
+
+  /* Color del cuerpo por defecto */
+  background: var(--bg);
 }
 
-/* Alerts */
+/* Franja roja superior que “invade” el borde → sin líneas blancas
+   y con las 4 esquinas a 24px */
+.error-summary::before{
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--bw));
+  right: calc(-1 * var(--bw));
+  top: calc(-1 * var(--bw));
+  height: calc(var(--cap-h) + 2 * var(--bw)); /* tapa el borde */
+  background: var(--err);
+  border-radius: 24px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Header: sólo el texto; el fondo rojo lo pinta ::before */
+.error-summary__header{
+  position: relative;
+  z-index: 1;
+  height: var(--cap-h);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: transparent;
+  color: var(--on-error, #fff);
+}
+
+.error-summary__title{
+  margin: 0;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: var(--line-height-h2, 1.25);
+  color: inherit;
+  text-align: left;
+}
+
+/* Cuerpo gris con esquinas inferiores redondeadas (por claridad visual) */
+.error-summary__body{
+  background: var(--bg);
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: 0 0 24px 24px; /* opcional: refuerza el redondeo inferior */
+}
+
+/* Lista de errores */
+.error-summary__list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.error-summary__item{
+  margin: 8px 0;
+}
+.error-summary__item::before{
+  content: "–";
+  margin-right: 8px;
+  color: var(--text);
+}
+
+/* Enlaces hacia los campos con error */
+.error-summary__link{
+  color: inherit;
+  text-decoration: none;
+}
+.error-summary__link:hover,
+.error-summary__link:focus-visible{
+  color: var(--err);
+  text-decoration: none;
+  outline: none;
+}
+
+
+
+/* ===========================
+   Alerts
+   =========================== */
+/* ===========================
+   Alerts (nuevo diseño tipo tarjeta)
+   =========================== */
 .alert{
-  display:flex; gap:.75rem; align-items:flex-start;
-  border:1px solid var(--border, #e5e7eb);
-  border-left:4px solid var(--border, #e5e7eb);
-  border-radius: var(--radius-md, 10px);
-  padding: var(--space-3, .75rem);
-  background: var(--surface, #fff);
-}
-.alert__icon{ font-size:1.25rem; line-height:1; }
-.alert__title{ margin:.125rem 0 .25rem; }
-.alert[data-tone="info"]    { border-left-color: var(--accent, var(--brand-600, #ff7a00)); }
-.alert[data-tone="success"] { border-left-color: var(--success); }
-.alert[data-tone="error"]   { border-left-color: var(--error); }
-.alert[data-tone="warning"] { border-left-color: var(--warning); }
+  /* Dimensiones/estilo base */
+  --cap-h: 50px;              /* altura de cabecera */
+  --radius: 24px;             /* redondeo global */
+  --bw: 2px;                  /* grosor del borde */
+  --tone:#f59e0b;             /* color por defecto (se sobreescribe por tono) */
 
-/* Tags */
+  position: relative;
+  background: var(--surface, #fff);
+  color: var(--text);
+  border: var(--bw) solid var(--tone);
+  border-radius: var(--radius);
+  overflow: hidden;           /* redondeos limpios */
+  box-shadow: var(--shadow-1, 0 2px 10px rgba(0,0,0,.08));
+
+  /* El contenido arranca debajo de la cabecera de color */
+  padding: calc(12px + var(--cap-h)) 16px 16px;
+}
+
+/* Tapa coloreada superior (evita líneas blancas con el borde) */
+.alert::before{
+  content:"";
+  position:absolute;
+  left: calc(-1 * var(--bw));
+  right: calc(-1 * var(--bw));
+  top:  calc(-1 * var(--bw));
+  height: calc(var(--cap-h) + 2 * var(--bw));
+  background: var(--tone);
+  border-radius: var(--radius);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* Usamos el contenedor del icono como cabecera centrada (texto),
+   ocultando el emoji original para no tocar el JSX */
+.alert__icon{
+  position:absolute;
+  inset: 0 0 auto 0;          /* arriba, a lo ancho */
+  height: var(--cap-h);
+  display:flex; align-items:center; justify-content:center;
+  color: var(--on-accent, #fff);
+  font-weight: 600;
+  font-size: 0;               /* oculta el emoji original */
+  z-index:1;
+}
+.alert__icon::after{ font-size:1rem; content:"Información"; }
+.alert[data-tone="warning"] .alert__icon::after{ content:"Aviso"; }
+.alert[data-tone="error"]   .alert__icon::after{ content:"Error"; }
+.alert[data-tone="success"] .alert__icon::after{ content:"Correcto"; }
+
+/* Título como “enlace” naranja con subrayado (línea) */
+.alert__title{
+  margin:.25rem 0 .5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--accent, #ff7a00);
+  border-bottom: 2px solid var(--accent, #ff7a00);
+  display: inline-block;
+  padding-bottom: 4px;
+}
+/* Si el título lleva un <a>, que herede el estilo */
+.alert__title a{
+  color: inherit; text-decoration: none;
+}
+.alert__title a:hover{ filter: brightness(.95); }
+
+/* Cuerpo del mensaje */
+.alert__desc{ margin: 0; line-height: 1.55; }
+
+/* Fecha/nota pequeña al estilo de la imagen: naranja y a la derecha.
+   (Vale para <small> o <time> si los usas dentro del cuerpo) */
+.alert__desc time,
+.alert__desc small{
+  display:block; margin-top:.5rem;
+  color: var(--accent, #ff7a00);
+  text-align:right;
+}
+
+/* Acción: botón pastilla naranja (usa tu .btn global) */
+.alert__action{ margin-top: 1rem; }
+.alert__action .btn{ border-radius: 24px; }
+
+/* Paleta por tono (cabecera y borde) */
+.alert[data-tone="info"]{
+  --tone: #FACC15;            /* amarillo suave */
+}
+.alert[data-tone="warning"]{
+  --tone: #60A5FA;            /* azul */
+}
+.alert[data-tone="error"]{
+  --tone: #F87171;            /* rojo */
+}
+.alert[data-tone="success"]{
+  --tone: #34D399;            /* verde */
+}
+
+/* Alto contraste: resalta el borde y mantiene legible la cabecera */
+:root[data-theme="hc"] .alert{ border-color:#fff; }
+:root[data-theme="hc"] .alert::before{ /* deja el color del tono */ }
+
+
+/* ===========================
+   Tag
+   =========================== */
 .tag{
   display:inline-flex; align-items:center; gap:.25rem;
-  padding:.125rem .5rem;
-  border-radius:999px;
-  border:1px solid transparent;
-  font-size:.95rem;
-  background: color-mix(in srgb, var(--surface, #fff) 60%, var(--bg, #fff));
+  padding:.125rem .5rem; border-radius:999px; border:1px solid transparent;
+  font-size:.95rem; background: color-mix(in srgb, var(--surface, #fff) 60%, var(--bg, #fff));
 }
-.tag[data-tone="success"] { 
-  background: var(--success); 
-  color: var(--on-success);
-  border-color: var(--success);
-}
-.tag[data-tone="error"] { 
-  background: var(--error);
-  color: var(--on-error);
-  border-color: var(--error);
-}
-.tag[data-tone="warning"] { 
-  background: var(--warning);
-  color: var(--on-warning);
-  border-color: var(--warning);
-}
+.tag[data-tone="success"]{ background: var(--success, #166534); color: var(--on-success, #fff); border-color: var(--success, #166534); }
+.tag[data-tone="error"]  { background: var(--error, #b91c1c);   color: var(--on-error, #fff);   border-color: var(--error, #b91c1c); }
+.tag[data-tone="warning"]{ background: var(--warning, #92400e); color: var(--on-warning, #fff); border-color: var(--warning, #92400e); }
 
-/* Skeleton */
+/* Tema oscuro: mejorar contraste de Tag */
+:root[data-theme="dark"] .tag[data-tone="success"]{ color:#a7f3d0; border-color:#a7f3d0; background:transparent; }
+:root[data-theme="dark"] .tag[data-tone="warning"]{ color:#fde68a; border-color:#fde68a; background:transparent; }
+:root[data-theme="dark"] .tag[data-tone="error"]  { color:#fecaca; border-color:#fecaca; background:transparent; }
+:root[data-theme="dark"] .tag[data-tone="info"]   { color:#bfdbfe; border-color:#bfdbfe; background:transparent; }
+
+/* ===========================
+   Skeleton
+   =========================== */
 .skeleton-row{
-  height: 1.125rem;
-  border-radius: 6px;
-  background: linear-gradient(90deg, color-mix(in srgb, var(--surface, #fff) 60%, var(--bg, #fff)), var(--surface, #fff), color-mix(in srgb, var(--surface, #fff) 60%, var(--bg, #fff)));
+  height: 1.125rem; border-radius: 6px;
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--surface, #fff) 60%, var(--bg, #fff)),
+    var(--surface, #fff),
+    color-mix(in srgb, var(--surface, #fff) 60%, var(--bg, #fff))
+  );
   background-size: 200% 100%;
   animation: load-skel 1.2s ease-in-out infinite;
   margin-bottom:.5rem;
 }
 @keyframes load-skel { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
-/* Seat map */
-.seatmap__legend{ display:flex; align-items:center; gap:.5rem; margin: .5rem 0; }
-.seatmap__grid{ display:block; border:1px dashed var(--border, #e5e7eb); padding: var(--space-3, .75rem); border-radius: var(--radius-md, 10px); }
-.seatmap__row{ margin-bottom: .25rem; }
+/* ===========================
+   Seat map
+   =========================== */
+.seatmap__legend{ display:flex; align-items:center; gap:.5rem; margin:.5rem 0; }
+.seatmap__grid{ display:block; border: none; /* Quita el borde de puntos */ padding: var(--space-3, .75rem); border-radius: var(--radius-md, 10px); }
+.seatmap__row{ margin-bottom:.25rem; }
 .seatmap__aisle{ display:inline-block; width: var(--seat-aisle, 24px); }
 
 .seat{
   display:inline-flex; align-items:center; justify-content:center;
   width: var(--seat-size, 40px); height: var(--seat-size, 40px);
-  border: 1px solid var(--border, #e5e7eb);
-  border-radius: 8px;
-  background: var(--bg);
-  cursor: pointer;
-  user-select:none;
+  border:1px solid var(--border, #e5e7eb); border-radius:8px;
+  background: var(--bg, #fff); cursor:pointer; user-select:none;
 }
-.seat[data-status="occupied"],
-.seat[aria-disabled="true"]{
-  opacity:.45; cursor:not-allowed; text-decoration: line-through;
+.seat[data-status="occupied"], .seat[aria-disabled="true"] {
+  background: var(--surface, #F6F6F6); /* fondo gris claro */
+  opacity: .45;
+  cursor: not-allowed;
+  text-decoration: line-through;
 }
-.seat[data-status="reserved"]{
-  border-style: dashed; opacity:.75;
-}
+.seat[data-status="reserved"]{ border-style:dashed; opacity:.75; }
 .seat[data-status="selected"]{
-  border-color: var(--accent, var(--brand-600, #ff7a00));
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent, var(--brand-600, #ff7a00)) 35%, transparent);
+  border-color: var(--accent, #ff7a00);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent, #ff7a00) 35%, transparent);
 }
-.seat:focus-visible,
-.seat[data-active="1"]{
+.seat:focus-visible, .seat[data-active="1"]{
   outline: var(--focus-ring, 2px solid var(--text));
 }
 
-/* Notices */
-.notices__controls{ display:flex; align-items:flex-end; gap:.75rem; flex-wrap:wrap; margin-top: var(--space-4, 1rem); }
-.notices__filters label{ display:flex; flex-direction:column; gap:.25rem; font-size:.95rem; }
+/* ===========================
+   Notices
+   =========================== */
+.notices__controls{ display:flex; flex-direction:column; /* Apila el título y los filtros verticalmente */ align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin: .75rem 0 1rem; padding: 0; }
+.notices__filters {
+  display: flex;
+  flex-direction: row;    /* Apila los filtros en horizontal */
+  align-items: center;
+  gap: 1rem;              /* Espacio entre cada filtro */
+  flex-wrap: wrap;        /* Permite que se ajusten en pantallas pequeñas */
+}
 
-/* Visually hidden */
+/* Cada control (texto + campo) en línea y con posición relativa para la flecha */
+.notices__filters label{
+  display: flex;
+  flex-direction: row;    /* Texto y selector en línea */
+  align-items: center;
+  gap: .5rem;
+  position: relative;
+  font-size: .95rem;
+}
+
+/* ===========================
+   Accesibilidad extra (HC)
+   =========================== */
+:root[data-theme="hc"] .btn{
+  background:transparent !important;
+  color:#fff !important;
+  border:2px solid #fff !important;
+}
+:root[data-theme="hc"] .btn:hover{
+  background:#fff !important;
+  color:#000 !important;
+}
+
+/* ===========================
+   Visually hidden helper
+   =========================== */
 .visually-hidden{
-  position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+  position:absolute !important; width:1px; height:1px; margin:-1px; padding:0;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+
+/* ===========================
+   Tarifa (select estilo Combo)
+   =========================== */
+/* ===========================
+   Tarifa (select estilo Combo)
+   =========================== */
+.tarifa{
+  --tarifa-trigger-h: 50px;      /* altura del botón/cabecera */
+  position: relative;
+  isolation: isolate;            /* crea contexto y evita solapamientos raros */
+  margin-bottom: 1rem;
+}
+.tarifa[data-open="1"]{ z-index: 60; }
+
+/* Wrapper para mantener el trigger por encima del menú */
+.tarifa-wrapper{
+  position: relative;
+  z-index: 2;                    /* por encima de la lista */
+  width: 100%;
+}
+
+/* Trigger: gris por defecto; naranja al abrir (texto blanco) */
+.tarifa .tarifa-trigger{
+  display: block;
+  width: 100%;
+  height: var(--tarifa-trigger-h);
+  line-height: calc(var(--tarifa-trigger-h) - 2px);
+  padding: 0 .75rem;
+  font: inherit;
+  text-align: left;
+  background: var(--bg) !important;     /* gris de tokens */
+  color: var(--text);
+  border: none;
+  border-radius: 24px;
+  box-shadow: none;                      /* sin sombra */
+  cursor: pointer;
+}
+.tarifa[data-open="1"] .tarifa-trigger{
+  background: var(--accent) !important;  /* naranja tokens */
+  color: var(--on-accent, #fff) !important;
+}
+
+/* Botón de tarifa (sin seleccionar: gris claro) */
+.tarifa .tarifa-trigger {
+  background: var(--surface) !important; /* gris claro */
+  color: var(--text);
+}
+
+/* Flecha igual que combobox */
+.tarifa-arrow{
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2em;
+  font-weight: bold;
+  color: var(--border);
+  pointer-events: none;
+  transition: transform .2s ease, color .2s ease;
+  z-index: 3;                            /* por encima del trigger */
+}
+.tarifa[data-open="1"] .tarifa-arrow{
+  transform: translateY(-50%) rotate(180deg);
+  color: var(--on-accent, #fff);
+}
+
+/* Focus consistente */
+.tarifa .tarifa-trigger:focus { outline: none; }
+.tarifa .tarifa-trigger:focus-visible{
+  outline: var(--focus-ring, 2px solid var(--text));
+  outline-offset: 2px;
+}
+
+/* Lista: por DETRÁS del trigger, sin sombra, gris, bordes inferiores 24px,
+   y con padding-top para que parezca salir desde detrás del botón */
+.tarifa-list{
+  position: absolute;
+  z-index: 1;                            /* detrás del wrapper/trigger */
+  top: 0;                                /* pegado arriba del contenedor */
+  left: 0;
+  right: 0;
+  background: var(--surface); /* gris claro */
+  border: none;
+  box-shadow: none;
+  border-radius: 8px 8px 24px 24px;
+  list-style: none;
+  padding: calc(var(--tarifa-trigger-h) - 4px) 0 0 0; /* deja hueco de cabecera */
+  margin: 0;
+  max-height: 280px;
+  overflow: auto;
+  animation: slideDown .2s ease-out;
+  transform-origin: top;
+}
+
+/* Scrollbar igual que combo */
+.tarifa-list::-webkit-scrollbar{ width: 8px; margin-top: 40px; }
+.tarifa-list::-webkit-scrollbar-track{ background: var(--bg); border-radius: 4px; }
+.tarifa-list::-webkit-scrollbar-thumb{ background-color: var(--border); border-radius: 4px; }
+
+/* Opciones con mismo padding que el combo */
+.tarifa-option{
+  padding: .5rem .75rem;
+  cursor: pointer;
+  color: var(--text, #111827);
+}
+.tarifa-option:hover,
+.tarifa-option[data-active="true"]{
+  color: var(--accent, #ff7a00);
+  background: transparent;
+}
+
+/* (Si conservas el <select> nativo en otro sitio, lo dejamos neutro) */
+select.tarifa-select {
+  background: var(--surface);
+  border: none;
+  border-radius: 24px;
+  height: 50px;
+  padding: 0 2.5rem 0 0.75rem;
+  font-size: 1rem;
+  color: var(--text);
+  box-shadow: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  width: 25%;
+  min-width: 120px;
+}
+select.tarifa-select:focus-visible {
+  background: var(--accent);
+  color: var(--on-accent, #fff);
+  outline: none;
+}
+
+/* =========================================
+   LÍNEAS (contenedor: 3 por fila)
+   ========================================= */
+.lineas{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: var(--space-3, 12px);
+  align-items: start;
+}
+
+/* Responsive opcional */
+@media (max-width: 900px){
+  .lineas{ grid-template-columns: repeat(2, minmax(220px, 1fr)); }
+}
+@media (max-width: 600px){
+  .lineas{ grid-template-columns: 1fr; }
+}
+
+/* =========================================
+   TARJETA DE LÍNEA (estilo “slider” de la imagen)
+   ========================================= */
+.linecard{
+  --linecard-radius: 24px;
+  --linecard-header-h: 52px;    /* alto de la cabecera naranja */
+  --linecard-label-w: 110px;    /* ancho fijo de la columna de etiquetas */
+  width: 25%;                  /* ocupa su track del grid */
+  min-width: 180px;            /* opcional: tamaño mínimo para legibilidad */
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: var(--linecard-radius);
+  overflow: hidden;             /* redondeo limpio */
+}
+
+/* Cabecera naranja con título centrado y flechas */
+.linecard__header{
+  position: relative;
+  height: 50px;                        /* Altura fija de 50px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--on-accent, #fff);
+  border-radius: 24px;                 /* Bordes redondeados en todas las esquinas */
+  padding: 0 var(--space-4, 16px);
+}
+
+.linecard__title{
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: inherit;
+}
+
+/* Botones de navegación (chevrons) */
+.linecard__navbtn{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  color: var(--on-accent, #fff);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+.linecard__navbtn--prev{ left: 8px; }
+.linecard__navbtn--next{ right: 8px; }
+.linecard__navbtn:focus-visible{
+  outline: 2px solid var(--on-accent, #fff);
+  outline-offset: 2px;
+  border-radius: 999px;
+}
+
+/* Cuerpo gris con esquinas inferiores redondeadas */
+.linecard__body{
+  background: var(--bg);
+  padding: 8px 16px 12px;
+  border-radius: 0 0 var(--linecard-radius) var(--linecard-radius);
+}
+
+/* Filas: etiquetas y valores alineados en columna */
+.linecard__row{
+  display: grid;
+  grid-template-columns: var(--linecard-label-w) 1fr; /* <-- Alinea los valores */
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0 12px;
+  border-bottom: 2px solid var(--accent); /* línea naranja como en la imagen */
+}
+
+.linecard__label{
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.linecard__value{
+  color: var(--text);
+  font-weight: 600; /* 500–600 según te guste */
+}
+
+/* ===========================
+   LINEAS (estilo “bloque” de la imagen)
+   =========================== */
+.lineas-dos{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 2.5rem; /* Aumenta el espacio entre tarjetas */
+  align-items: start;
+}
+
+/* Responsive opcional */
+@media (max-width: 900px){
+  .lineas-dos{ grid-template-columns: repeat(2, minmax(220px, 1fr)); }
+}
+@media (max-width: 600px){
+  .lineas-dos{ grid-template-columns: 1fr; }
+}
+
+/* Tarjeta simple (sin imagen) */
+.linecard--simple{
+  background: var(--surface);
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: var(--radius-md, 10px);
+  padding: var(--space-4, 1rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* Títulos grandes y gruesos */
+.linecard--simple .linecard__title{
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 var(--space-3, 1rem);
+}
+
+/* Separador interno (línea gris clara) */
+.linecard--simple .linecard__separator{
+  height: 1px;
+  background: var(--border, #e5e7eb);
+  margin: var(--space-3, 1rem) 0;
+}
+
+/* Texto más pequeño y ligero */
+.linecard--simple .linecard__desc{
+  font-size: .875rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin: 0 0 var(--space-3, 1rem);
+}
+
+/* Botón grande y centrado */
+.linecard--simple .btn{
+  margin: 0 auto;
+  padding: .75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: var(--radius-md, 10px);
+  width: 100%;
+  max-width: 220px;
+}
+
+/* ===========================
+   Checkbox personalizado
+   =========================== */
+.custom-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--muted);
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s;
+  vertical-align: middle;
+}
+
+.custom-checkbox:checked {
+  border-color: var(--accent);
+  background: #fff;
+}
+
+.custom-checkbox:checked::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 3.3px;      /* antes 4px */
+  top: 0px;       /* antes 0px */
+  width: 6px;     /* antes 8px */
+  height: 10px;   /* antes 14px */
+  border: solid var(--accent);
+  border-width: 0 3px 3px 0; /* antes 0 3px 3px 0 */
+  transform: rotate(45deg);
+}
+
+.buscar-y-linea-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.separador-buscar-linea-vertical {
+  width: 100%;
+  height: 2rem; /* Espacio vertical entre el botón y la tarjeta */
+}
+
+.schedule__return {
+  background: var(--surface, #F6F6F6);
+  border-radius: 24px;
+  padding: 1rem;
+}
+
+/* ===========================
+   TicketCard (confirmación)
+   =========================== */
+.ticket{
+  --cap-h: 50px;               /* alto cabecera */
+  --bw: 2px;                   /* grosor del borde */
+  --radius: 24px;
+
+  position: relative;
+  border: var(--bw) solid var(--accent);
+  border-radius: var(--radius);
+  overflow: hidden;            /* redondeos perfectos */
+  background: var(--surface, #fff);
+  box-shadow: var(--shadow-1, 0 2px 10px rgba(0,0,0,.08));
+}
+
+/* Tapa naranja que “invade” el borde (evita líneas blancas) */
+.ticket::before{
+  content:"";
+  position:absolute;
+  left: calc(-1 * var(--bw));
+  right: calc(-1 * var(--bw));
+  top: calc(-1 * var(--bw));
+  height: calc(var(--cap-h) + 2 * var(--bw));
+  background: var(--accent);
+  border-radius: var(--radius);
+  pointer-events:none;
+  z-index:0;
+}
+
+.ticket__header{
+  position:relative;
+  z-index:1;
+  height: var(--cap-h);
+  display:flex;
+  align-items:center;
+  padding: 0 16px;
+  color: var(--on-accent, #fff);
+  background: transparent;     /* lo pinta ::before */
+}
+.ticket__title{
+  margin:0;
+  font-weight:600;
+  font-size:1.05rem;
+  color:inherit;
+}
+
+.ticket__body{ padding: 12px 16px 16px; }
+
+.ticket__route{
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 1.05rem;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 4px;
+}
+
+.ticket__info p{ margin:.35rem 0; color: var(--text); }
+
+.ticket__footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  margin-top:1rem;
+}
+.ticket__code{ color: var(--muted, #9ca3af); }
+.ticket__cta{
+  height:44px;
+  padding: 0 .9rem;
+  border-radius: 24px;
+}
+
+/* Alto contraste */
+:root[data-theme="hc"] .ticket{ border-color:#fff; }
+
+.section-header {
+  color: var(--accent, #ff7a00);
+  font-size: var(--font-size-h2, 1.375rem);
+  font-weight: 600;
+  line-height: var(--line-height-h2, 1.25);
+  margin: 0 0 var(--space-4, 1rem);
+}
+
+.alert {
+  max-width: 25%;           /* Ocupa un cuarto del ancho del contenedor */
+  min-width: 240px;         /* Opcional: ancho mínimo para legibilidad */
+  margin-inline: auto;      /* Centra horizontalmente */
+}
+
+/* ===== Notices: barra de filtros (Severidad / Línea / Fecha / Buscar) ===== */
+.notices__controls{
+  --h: 50px;
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  flex-wrap:wrap;
+  margin:.75rem 0 1rem;
+  padding:0;
+}
+
+/* Cada control (texto + campo) en línea y con posición relativa para la flecha */
+.notices__filters label{
+  display: flex;
+  flex-direction: row;    /* Texto y selector en línea */
+  align-items: center;
+  gap: .5rem;
+  position: relative;
+  font-size: .95rem;
+}
+
+/* Pastilla gris (selects e inputs) */
+.notices__filters label > select,
+.notices__filters label > input[type="date"],
+.notices__filters label > input[type="text"]{
+  appearance:none; -webkit-appearance:none; -moz-appearance:none;
+  height: var(--h);
+  line-height: var(--h);
+  min-width: 160px;
+  padding: 0 2.25rem 0 .75rem;            /* hueco para flecha en selects */
+  border: none !important;
+  border-radius: 24px !important;
+  background: var(--surface, #F6F6F6) !important;
+  color: var(--text) !important;
+  box-shadow: none !important;
+  font: inherit;
+  cursor: pointer;
+  transition: background .15s ease, color .15s ease, filter .15s ease;
+}
+
+/* Hover: tipografía naranja (como el resto de menús) */
+.notices__filters label > select:hover,
+.notices__filters label > input[type="date"]:hover,
+.notices__filters label > input[type="text"]:hover{
+  color: var(--accent, #ff7a00) !important;
+}
+
+/* Foco: fondo naranja y texto blanco */
+.notices__filters label > select:focus,
+.notices__filters label > select:focus-visible,
+.notices__filters label > input[type="date"]:focus,
+.notices__filters label > input[type="date"]:focus-visible,
+.notices__filters label > input[type="text"]:focus,
+.notices__filters label > input[type="text"]:focus-visible{
+  outline: none;
+  background: var(--accent) !important;
+  color: var(--on-accent, #fff) !important;
+}
+
+/* Flecha sólo cuando hay un <select> dentro del label */
+.notices__filters label:has(> select)::after{
+  content:"▼";
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:1.1em;
+  font-weight:700;
+  color: var(--border);
+  pointer-events:none;
+  line-height:1;
+}
+.notices__filters label:has(> select):focus-within::after{
+  content:"▲";
+  color: var(--on-accent, #fff);
+}
+
+/* ===== Notices: filtros con el mismo estilo que Línea / Ocupación ===== */
+.notices__controls{
+  display:flex;
+  gap:1rem;
+  align-items:center;
+  flex-wrap:wrap;
+  margin:.5rem 0 1rem;
+  padding:0;
+}
+
+/* Cada control va dentro de un <label> (texto + campo) */
+.notices__filters label{
+  position: relative;
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  font-size:.95rem;
+}
+
+/* Píldora gris para <select> e inputs */
+.notices__filters label > select,
+.notices__filters label > input[type="date"],
+.notices__filters label > input[type="text"]{
+  appearance:none; -webkit-appearance:none; -moz-appearance:none;
+  height:50px;
+  line-height:50px;
+  min-width:160px;
+  padding:0 2.25rem 0 .75rem;     /* hueco para flecha (en selects) */
+  border:none !important;
+  border-radius:24px !important;
+  background-color:var(--surface, #F6F6F6) !important;
+  color:var(--text) !important;
+  box-shadow:none !important;
+  font:inherit;
+  cursor:pointer;
+  transition:background-color .15s ease, color .15s ease, filter .15s ease;
+}
+
+/* Hover: tipografía naranja, igual que el resto de menús */
+.notices__filters label > select:hover,
+.notices__filters label > input[type="date"]:hover,
+.notices__filters label > input[type="text"]:hover{
+  color:var(--accent, #ff7a00) !important;
+}
+
+/* Foco/abierto: fondo naranja + texto blanco */
+.notices__filters label > select:focus,
+.notices__filters label > select:focus-visible,
+.notices__filters label > input[type="date"]:focus,
+.notices__filters label > input[type="date"]:focus-visible,
+.notices__filters label > input[type="text"]:focus,
+.notices__filters label > input[type="text"]:focus-visible{
+  outline:none;
+  background-color:var(--accent) !important;
+  color:var(--on-accent, #fff) !important;
+}
+
+/* Flecha del select (solo donde hay <select>) */
+.notices__filters label:has(> select)::after{
+  content:"▼";
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:1.1em;
+  font-weight:700;
+  color:var(--border);
+  pointer-events:none;
+  line-height:1;
+}
+.notices__filters label:has(> select):focus-within::after{
+  content:"▲";
+  color:var(--on-accent, #fff);
+}
+
+/* Opciones dentro del menú (si el navegador lo permite) */
+.notices__filters label > select option:hover,
+.notices__filters label > select option:focus,
+.notices__filters label > select option:checked{
+  color:var(--accent, #ff7a00) !important;
+  background:var(--surface, #F6F6F6) !important;
+}
+
+/* Ajustes visuales del date input */
+.notices__filters label > input[type="date"]::-webkit-calendar-picker-indicator{
+  opacity:.7;
+}
+.notices__filters label > input[type="date"]:focus::-webkit-calendar-picker-indicator{
+  filter: invert(1);
+}
+
+/* Botón Buscar: misma píldora */
+.notices__controls .btn{
+  height:50px;
+  border-radius:24px;
+  padding:0 1rem;
+}
+
+/* Alto contraste */
+:root[data-theme="hc"] .notices__filters label > select,
+:root[data-theme="hc"] .notices__filters label > input[type="date"],
+:root[data-theme="hc"] .notices__filters label > input[type="text"]{
+  background:transparent !important;
+  color:#fff !important;
+  border:2px solid #fff !important;
+}
+:root[data-theme="hc"] .notices__filters label:has(> select)::after{ color:#fff; }
+:root[data-theme="hc"] .notices__filters label:has(> select):focus-within::after{ color:#000; }
+
+.notices__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 avisos por fila */
+  gap: 1.25rem;                          /* Espacio entre avisos */
+  align-items: stretch;
+}
+
+:root[data-theme="dark"] .seat {
+  color: var(--on-accent, #fff);
+}
+
+:root[data-theme="dark"] .custom-checkbox {
+  background: var(--surface, #222); /* Fondo oscuro para el checkbox */
+  border-color: var(--border, #444);
+}
+
+.date-input {
+  position: relative;
+}
+
+.datepicker {
+  position: absolute;
+  left: 100%;           /* Aparece a la derecha del input */
+  top: 0;
+  margin-left: 1rem;    /* Espacio entre el input y el calendario */
+  z-index: 10;
 }

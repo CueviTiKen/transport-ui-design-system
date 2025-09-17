@@ -7,6 +7,7 @@ import {
   isSameDay,
   parseDMY
 } from "../../utils/date";
+import CalendarIcon from "./CalendarIcon";
 
 /**
  * DateInput con calendario accesible (sin librerías).
@@ -78,7 +79,7 @@ export default function DateInput({
         <input
           ref={inputRef}
           id={id || cid}
-          className="date-input__text"
+          className={`date-input__text${open ? " date-input__text--active" : ""}`}
           inputMode="numeric"
           placeholder={placeholder}
           value={value || ""}
@@ -89,12 +90,12 @@ export default function DateInput({
           {...ariaProps}
         />
         <button
+          className="date-input__button"
           type="button"
-          className="date-input__button btn"
           aria-label="Abrir calendario"
           onClick={() => (open ? setOpen(false) : openCalendar())}
         >
-          📅
+          <CalendarIcon size={28} />
         </button>
       </div>
 

@@ -15,11 +15,15 @@ import SeatSelector from "./components/domain/SeatSelector";
 import Notices from "./components/domain/Notices";
 import Checkout from "./components/domain/Checkout";
 import TicketSearch from "./components/domain/TicketSearch";
+import TarifaSelect from "./components/ui/TarifaSelect";
 
 import stops from "./data/stops";
 import schedules from "./data/schedules";
 import seatConfig from "./data/seats";
 import notices from "./data/notices";
+
+import './styles/tokens.css';
+import './styles/App.css';
 
 export default function App(){
   const [theme, setTheme] = useState("light");
@@ -69,7 +73,7 @@ export default function App(){
 
   return (
     <div className="container App">
-      <h1>Sistema de diseño para transporte público 🚍</h1>
+      <h1>Sistema de diseño para transporte público</h1>
 
       {/* Conmutador de temas y diálogo de condiciones */}
       <div className="theme-switcher" style={{ display:"flex", gap:".5rem", margin:"1rem 0" }}>
@@ -122,16 +126,9 @@ export default function App(){
         </Field>
 
         <Field label="Tarifa" help="Selecciona un tipo de billete">
-          <Select
-            id="tarifa"
+          <TarifaSelect
             value={form.tarifa}
-            onChange={e=>setForm(f=>({...f, tarifa:e.target.value}))}
-            options={[
-              { value:"", label:"Selecciona…" },
-              { value:"normal", label:"Normal" },
-              { value:"joven",  label:"Joven" },
-              { value:"pmr",    label:"PMR" }
-            ]}
+            onChange={val => setForm(f => ({ ...f, tarifa: val }))}
           />
         </Field>
 
@@ -140,12 +137,18 @@ export default function App(){
           {errs.find(e=>e.id==="acepta") && (<div className="error" role="alert">Debes aceptar las condiciones</div>)}
         </div>
 
-        <Boton texto="Buscar" />
+        <div>
+          <Boton texto="Buscar" />
+          <div className="separador-buscar-linea-vertical"></div>
+          {/* ...otras tarjetas si las tienes... */}
+        </div>
       </form>
 
       {/* Tarjetas de ejemplo */}
+      <div>
       <TarjetaLinea numero="5" destino="Centro" hora="10:30" />
       <TarjetaLinea numero="12" destino="Estación" hora="11:00" />
+      </div>
 
       {/* 1) Selección de IDA */}
       <h2 style={{ marginTop: "2rem" }}>Elige tu IDA</h2>

@@ -1,6 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
+import "./styles/tokens.css";   // ➊ tokens primero
+import "./styles/App.css";      // ➋ hoja única unificada
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
